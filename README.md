@@ -38,7 +38,7 @@ npm run dev
 * Industry standard code structure
 
 ## Screenshots
-<div style="display:flex; flex-direction:column; gap:30px">
+<div style="display:flex; flex-direction:column; gap:50px">
     <div style="display:flex; flex-direction:column; gap:10px">
         <span style="font-size:18px;">Mobiles</span>
         <div style="display:flex; gap:10px">
