@@ -61,7 +61,7 @@ const SearchBar = () => {
                     width:'100%',
                     height:'37px',
                 }}
-                placeholder="Enter Location"
+                placeholder="Enter City..."
                 options={options}
                 onSearch={searchHandler}
                 onSelect={selectHandler}
