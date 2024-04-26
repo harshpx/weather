@@ -46,7 +46,7 @@ const SearchBar = () => {
         theme={{
             token:{
                 colorText:`${theme==='dark' ? 'white' : 'black'}`,
-                colorTextPlaceholder:`${theme==='dark' ? 'white' : 'black'}`,
+                colorTextPlaceholder:`${theme==='dark' ? '#afb7c4' : '#494949'}`,
                 colorBorder:'#818cf8',
                 colorBorderHover:'#06b6d4',
                 controlOutlineWidth:0,
@@ -61,7 +61,7 @@ const SearchBar = () => {
                     width:'100%',
                     height:'37px',
                 }}
-                placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>Enter City.. (with a space)</div>}
+                placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>{isMobile ? 'Enter City.. (with a space)' : 'Enter City... (followed by a space for suggestions)'}</div>}
                 options={options}
                 onSearch={searchHandler}
                 onSelect={selectHandler}
