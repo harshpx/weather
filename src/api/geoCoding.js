@@ -26,7 +26,7 @@ const getPlaces = async (text) => {
 }
 
 const getPlaces2 = async (text)=>{
-    const URL = `http://api.openweathermap.org/geo/1.0/direct?q=${text}&limit=7&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`
+    const URL = `https://api.openweathermap.org/geo/1.0/direct?q=${text}&limit=7&appid=${import.meta.env.VITE_OPENWEATHER_API_KEY}`
     try {
         const res = await fetch(URL);
         const data = await res.json();
