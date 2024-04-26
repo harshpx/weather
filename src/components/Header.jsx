@@ -12,7 +12,7 @@ const Header = () => {
 
     return (
         <div className={`${theme==='dark' ? 'dark' : ''}`}>
-            <div className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center justify-between w-full px-1 py-3 gap-2`}>
+            <div className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center justify-between w-full px-0 py-3 gap-2`}>
                 <div className='flex items-center justify-evenly gap-1'>
                     <TiWeatherCloudy size={40}/>
                     <div className='text-2xl'>Weather</div>

@@ -61,7 +61,7 @@ const SearchBar = () => {
                     width:'100%',
                     height:'37px',
                 }}
-                placeholder={<div className='text-sm'>Enter City (and a space, to get suggestions)</div>}
+                placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>Enter City.. (with a space)</div>}
                 options={options}
                 onSearch={searchHandler}
                 onSelect={selectHandler}
