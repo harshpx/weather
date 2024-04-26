@@ -1,13 +1,13 @@
 # Weather App
-<div style="display:flex; flex-direction:column">
-    <div style="font-size:22px">The most Beautiful Weather App</div>
-    <div style="font-size:16px">(Made using React.js, Tailwind CSS and Ant Design)</div>
-    <div style="margin-top:20px; display:flex; flex-direction:column">
-        <span style="font-size:22px">APIs used:</span>
-        <a href="https://openweathermap.org/api">https://openweathermap.org/api</a>
-        <a href="https://www.geoapify.com/geocoding-api">https://www.geoapify.com/geocoding-api</a>
-    </div>
-</div> 
+
+### The most Beautiful Weather App(Made using React.js, Tailwind CSS and Ant Design)
+
+## APIs used
+* OpenWeather: [https://openweathermap.org/api](https://openweathermap.org/api)
+* Geoapify: [https://www.geoapify.com/geocoding-api](https://www.geoapify.com/geocoding-api)
+
+## Live Link
+This Project is deployed at: []()
 
 ## To run locally (must have Node.js and NPM installed)
 1. Clone this project on your local device & install necessary packages
