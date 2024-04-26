@@ -23,7 +23,7 @@ const SearchBar = () => {
     
     const searchHandler = (text)=>{
         if(!text) {text = 'New Delhi, New Delhi, Delhi, India'}
-        getPlaces2(text)
+        getPlaces(text)
         .then(res=>{
             setSearchResults(res)
             setOptions(getOptions(searchResults))
@@ -61,7 +61,7 @@ const SearchBar = () => {
                     width:'100%',
                     height:'37px',
                 }}
-                placeholder="Enter City..."
+                placeholder={<div className='text-sm'>Enter City (and a space, to get suggestions)</div>}
                 options={options}
                 onSearch={searchHandler}
                 onSelect={selectHandler}
