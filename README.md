@@ -1,6 +1,6 @@
 # Weather App
 
-### The most Beautiful Weather App(Made using React.js, Tailwind CSS and Ant Design)
+### The most Beautiful Weather App (Made using React.js, Tailwind CSS and Ant Design)
 
 ## APIs used
 * OpenWeather: [https://openweathermap.org/api](https://openweathermap.org/api)
