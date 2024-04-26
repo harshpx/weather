@@ -191,10 +191,12 @@ const App = () => {
 							</div> : null}
 
 							{/* forecast card */}
-							{forecast ? <div className='w-full rounded-xl bg-indigo-100 shadow-lg dark:bg-slate-500 md:col-span-2 xl:col-span-3 p-5 overflow-scroll flex items-center gap-2'>
-								{forecast?.list?.map(item=>(
-									<ForecastCard key={item?.dt} date={item?.dt} minTemp={item?.main?.temp_min} maxTemp={item?.main?.temp_max} unit={unit} icon={item?.weather[0]?.icon} theme={theme}/>
-								))}
+							{forecast ? <div className='w-full rounded-xl bg-indigo-100 shadow-lg dark:bg-slate-500 md:col-span-2 xl:col-span-3 p-5 '>
+								<div className='flex items-center gap-2 overflow-scroll rounded-xl'>
+									{forecast?.list?.map(item=>(
+										<ForecastCard key={item?.dt} date={item?.dt} minTemp={item?.main?.temp_min} maxTemp={item?.main?.temp_max} unit={unit} icon={item?.weather[0]?.icon} theme={theme}/>
+									))}
+								</div>
 							</div> : null}
 						</div>
 					</div>
