@@ -23,7 +23,7 @@ const SearchBar = () => {
     
     const searchHandler = (text)=>{
         if(!text) {text = 'New Delhi, New Delhi, Delhi, India'}
-        getPlaces2(text)
+        getPlaces(text)
         .then(res=>{
             setSearchResults(res)
             setOptions(getOptions(searchResults))
