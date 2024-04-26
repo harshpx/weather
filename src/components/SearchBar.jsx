@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useId, useState } from 'react'
 import { v4 as uuid } from 'uuid';
 import { AutoComplete, ConfigProvider } from 'antd'
 import AppContext from '../context/AppContext'
-import { getPlaces } from '../api/geoCoding'
+import { getPlaces, getPlaces2 } from '../api/geoCoding'
 import useWindowSize from '../hooks/useWindowSize';
 
 const SearchBar = () => {
@@ -23,7 +23,7 @@ const SearchBar = () => {
     
     const searchHandler = (text)=>{
         if(!text) {text = 'New Delhi, New Delhi, Delhi, India'}
-        getPlaces(text)
+        getPlaces2(text)
         .then(res=>{
             setSearchResults(res)
             setOptions(getOptions(searchResults))

@@ -1,5 +1,6 @@
 import {useState,useContext,useLayoutEffect} from 'react';
 import { getWeather, getForecast } from './api/openWeather';
+import { getPlaces2 } from './api/geoCoding';
 import moment from 'moment-timezone';
 import AppContext from './context/AppContext';
 import Card from './components/Card';
@@ -60,6 +61,8 @@ const App = () => {
 	const timeZone = moment.tz.guess();
 	const [forecast,setForecast] = useState(null);
 
+	// const [places,setPlaces] = useState(null);
+
 	const {isMobile,isTablet,isDesktop} = useWindowSize();
 
 	useLayoutEffect(()=>{
@@ -75,6 +78,12 @@ const App = () => {
 			setForecast(res);
 		})
 		.catch(err=>console.log(err))
+
+		// getPlaces2('new delhi')
+		// .then(res=>{
+		// 	setPlaces(res);
+		// })
+		// .catch(err=>console.log(err))
 	},[location,unit])
 
 	return (
