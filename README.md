@@ -40,9 +40,11 @@ npm run dev
 ## Screenshots
 <div style="display:flex; flex-direction:column; gap:30px">
     <div style="display:flex; flex-direction:column; gap:10px">
-        <span style="font-size:18px;">Desktops</span>
-        <img src="./src/assets/screenshots/ss1.png"/>
-        <img src="./src/assets/screenshots/ss2.png"/>
+        <span style="font-size:18px;">Mobiles</span>
+        <div style="display:flex; gap:10px">
+            <img src="./src/assets/screenshots/ss5.png" style="width:46%; height:46%"/>
+            <img src="./src/assets/screenshots/ss6.png" style="width:46%; height:46%"/>
+        </div>
     </div>
     <div style="display:flex; flex-direction:column; gap:10px">
         <span style="font-size:18px;">Tablets</span>
@@ -50,10 +52,8 @@ npm run dev
         <img src="./src/assets/screenshots/ss4.png"/>
     </div>
     <div style="display:flex; flex-direction:column; gap:10px">
-        <span style="font-size:18px;">Mobiles</span>
-        <div style="display:flex; gap:10px">
-            <img src="./src/assets/screenshots/ss5.png" style="width:46%; height:46%"/>
-            <img src="./src/assets/screenshots/ss6.png" style="width:46%; height:46%"/>
-        </div>
+        <span style="font-size:18px;">Desktops</span>
+        <img src="./src/assets/screenshots/ss1.png"/>
+        <img src="./src/assets/screenshots/ss2.png"/>
     </div>
 </div>
