@@ -3,8 +3,8 @@
 ### The most Beautiful Weather App (Made using React.js, Tailwind CSS and Ant Design)
 
 ## APIs used
-* OpenWeather: [https://openweathermap.org/api](https://openweathermap.org/api)
-* Geoapify: [https://www.geoapify.com/geocoding-api](https://www.geoapify.com/geocoding-api)
+* OpenWeather: [https://openweathermap.org/api](https://openweathermap.org/api) (for Weather info)
+* Geoapify: [https://www.geoapify.com/geocoding-api](https://www.geoapify.com/geocoding-api) (for Geocoding)
 
 ## Live Link
 ### This Project is deployed at: [https://weather-harshpx.vercel.app](https://weather-harshpx.vercel.app)
