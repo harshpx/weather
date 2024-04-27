@@ -12,12 +12,12 @@ const Header = () => {
 
     return (
         <div className={`${theme==='dark' ? 'dark' : ''}`}>
-            <div className={`flex ${isMobile ? "flex-col" : "flex-row"} items-center justify-between w-full px-0 py-3 gap-2`}>
+            <div className={`flex ${isMobile ? "flex-col gap-4" : "flex-row"} items-center justify-between w-full px-0 py-3`}>
                 <div className='flex items-center justify-evenly gap-1'>
                     <TiWeatherCloudy size={40}/>
                     <div className='text-2xl'>Weather</div>
                 </div>
-                <div className={`flex items-center w-full md:w-1/2 lg:w-2/5 xl:w-1/3 justify-between md:justify-end gap-2`}>
+                <div className={`flex flex-col md:flex-row items-center w-4/5 md:w-3/5 lg:w-1/2 xl:w-2/5 justify-between md:justify-end gap-2`}>
                     <div className='w-full'>
                         <SearchBar/>
                     </div>

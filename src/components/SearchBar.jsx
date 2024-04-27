@@ -1,14 +1,19 @@
 import React, { useContext, useEffect, useId, useState } from 'react'
 import { v4 as uuid } from 'uuid';
-import { AutoComplete, ConfigProvider } from 'antd'
+import { AutoComplete, Button, ConfigProvider } from 'antd'
 import AppContext from '../context/AppContext'
 import { getPlaces, getPlaces2 } from '../api/geoCoding'
 import useWindowSize from '../hooks/useWindowSize';
+
+import { FaSearch } from "react-icons/fa";
 
 const SearchBar = () => {
     const {location,setLocation,theme} = useContext(AppContext);
     const [searchResults,setSearchResults] = useState([]);
     const [options,setOptions] = useState([]);
+    const [optionsVisible,setOptionsVisible] = useState(false);
+
+    const [searchText,setSearchText] = useState('');
 
     const {isMobile} = useWindowSize();
 
@@ -22,7 +27,8 @@ const SearchBar = () => {
     )
     
     const searchHandler = (text)=>{
-        if(!text) {text = 'New Delhi, New Delhi, Delhi, India'}
+        setSearchText(text)
+        if(!text) text = 'New Delhi';
         getPlaces(text)
         .then(res=>{
             setSearchResults(res)
@@ -39,6 +45,27 @@ const SearchBar = () => {
             localStorage.setItem('location',JSON.stringify(currLocation[0]));
         }
         else console.log('No Location found');
+        setSearchText('');
+    }
+
+    const enterHandler = (e)=>{
+        if(e.key==='Enter'){
+            getPlaces(searchText)
+            .then(res=>{
+                setSearchResults(res)
+                setOptions(getOptions(searchResults))
+            })
+            .catch(err=>console.log(err))
+        }
+    }
+
+    const getSearchSuggestions = ()=>{
+        getPlaces(searchText)
+        .then(res=>{
+            setSearchResults(res)
+            setOptions(getOptions(searchResults))
+        })
+        .catch(err=>console.log(err))
     }
 
     return (
@@ -56,16 +83,25 @@ const SearchBar = () => {
             }
         }}
         >
+            <div className='flex items-center gap-1 w-full'>
             <AutoComplete
                 style={{
                     width:'100%',
                     height:'37px',
                 }}
-                placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>{isMobile ? 'Enter City.. (with a space)' : 'Enter City... (followed by a space for suggestions)'}</div>}
+                value={searchText}
+                onChange={(text)=>{
+                    setSearchText(text)
+                }}
+                placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>
+                    {isMobile ? 'Enter City... (then press enter "multiple times" for suggestions)' : 'Enter City... (then press enter "multiple times" for suggestions)'}
+                </div>}
                 options={options}
                 onSearch={searchHandler}
                 onSelect={selectHandler}
+                onKeyDown={enterHandler}
             />
+            </div>
         </ConfigProvider>
     )
 }
