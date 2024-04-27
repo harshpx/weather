@@ -96,7 +96,7 @@ const SearchBar = () => {
                     setSearchText(text)
                 }}
                 placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>
-                    {isMobile ? 'Enter City... (then press enter "multiple times" for suggestions)' : 'Enter City... (then press enter "multiple times" for suggestions)'}
+                    {isMobile ? 'Enter District/City Name.. (then press enter "multiple times" for suggestions)' : 'Enter District/City Name... (then press enter "maybe multiple times" for suggestions)'}
                 </div>}
                 options={options}
                 onSearch={searchHandler}

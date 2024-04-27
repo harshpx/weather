@@ -1,12 +1,12 @@
 const getPlaces = async (text) => {
-    const URL = `https://api.geoapify.com/v1/geocode/search?text=${text}&limit=10&type=city&apiKey=${import.meta.env.VITE_GEOCODING_API_KEY}`;
+    const URL = `https://api.geoapify.com/v1/geocode/search?text=${text}&limit=10&apiKey=${import.meta.env.VITE_GEOCODING_API_KEY}`;
     try {
         const res = await fetch(URL);
         const data = await res.json();
 
         const arr = []
         data.features.map(obj=>{
-            let curr = obj.properties.city + ", " + obj.properties.state +", " + obj.properties.country
+            let curr = (obj.properties.suburb || obj.properties.city) + ", " + obj.properties.state +", " + obj.properties.country
             let objData = {
                 address:curr,
                 lat:obj.properties.lat,
