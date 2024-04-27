@@ -27,14 +27,16 @@ const SearchBar = () => {
     )
     
     const searchHandler = (text)=>{
-        setSearchText(text)
-        if(!text) text = 'New Delhi';
-        getPlaces(text)
-        .then(res=>{
-            setSearchResults(res)
-            setOptions(getOptions(searchResults))
-        })
-        .catch(err=>console.log(err))
+        if(!text){
+            setOptions([])
+        }else{
+            getPlaces(text)
+            .then(res=>{
+                setSearchResults(res)
+                setOptions(getOptions(searchResults))
+            })
+            .catch(err=>console.log(err))
+        }
     }
 
     const selectHandler = (text)=>{
