@@ -192,7 +192,7 @@ const App = () => {
 
 							{/* forecast card */}
 							{forecast ? <div className='w-full rounded-xl bg-indigo-100 shadow-lg dark:bg-slate-500 md:col-span-2 xl:col-span-3 p-5 '>
-								<div className='flex items-center gap-2 overflow-scroll rounded-xl'>
+								<div className='flex items-center gap-2 overflow-x-scroll rounded-xl scrollbar scrollbar-padding-2 scrollbar-thumb-rounded-full scrollbar-thumb-gray-100 scrollbar-track-indigo-100 dark:scrollbar-thumb-gray-600 dark:scrollbar-track-slate-500'>
 									{forecast?.list?.map(item=>(
 										<ForecastCard key={item?.dt} date={item?.dt} minTemp={item?.main?.temp_min} maxTemp={item?.main?.temp_max} unit={unit} icon={item?.weather[0]?.icon} theme={theme}/>
 									))}

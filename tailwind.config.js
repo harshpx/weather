@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import scrollbarPlugin from 'tailwind-scrollbar';
 export default {
   darkMode:"class",
   content: [
@@ -8,6 +9,8 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    scrollbarPlugin
+  ],
 }
 
