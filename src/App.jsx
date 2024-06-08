@@ -1,4 +1,5 @@
 import {useState,useContext,useLayoutEffect} from 'react';
+import { Spin } from 'antd';
 import { getWeather, getForecast } from './api/openWeather';
 import moment from 'moment-timezone';
 import AppContext from './context/AppContext';
@@ -55,26 +56,40 @@ const ForecastCard = ({date,minTemp,maxTemp,unit,icon,theme})=>{
 const App = () => {
 	const {location,unit,theme} = useContext(AppContext);
 	const [weatherData,setWeatherData] = useState(null);
-	const timeZone = moment.tz.guess();
 	const [forecast,setForecast] = useState(null);
+	const [loading,setLoading] = useState(false);
+	const timeZone = moment.tz.guess();
 
 	// const [places,setPlaces] = useState(null);
 
 	const {isMobile,isTablet,isDesktop} = useWindowSize();
 
 	useLayoutEffect(()=>{
-		getWeather(location,unit)
-		.then(res=>{
-			setWeatherData(res);
-			// console.log(res);
-		})
-		.catch(err=>console.log(err))
+		;(async ()=>{
+			try{
+				setLoading(true);
+				const weather = await getWeather(location,unit);
+				setWeatherData(weather);
+				const forecast = await getForecast(location,unit);
+				setForecast(forecast);
+			}catch(err){
+				console.log(err);
+			}finally{
+				setLoading(false);
+			}
+		})()
+		// getWeather(location,unit)
+		// .then(res=>{
+		// 	setWeatherData(res);
+		// 	// console.log(res);
+		// })
+		// .catch(err=>console.log(err))
 
-		getForecast(location,unit)
-		.then(res=>{
-			setForecast(res);
-		})
-		.catch(err=>console.log(err))
+		// getForecast(location,unit)
+		// .then(res=>{
+		// 	setForecast(res);
+		// })
+		// .catch(err=>console.log(err))
 	},[location,unit])
 
 	return (
@@ -82,7 +97,7 @@ const App = () => {
 			<div className='transition-all duration-300 min-h-screen min-w-full bg-indigo-100 dark:bg-gray-900 text-black dark:text-white p-6 sm:p-10 md:p-14 lg:p-20 xl:p-24'>
 				<Header/>
 				<Card>
-					<div className='flex flex-col items-center justify-evenly gap-2 w-full'>
+					{!loading ? <div className='flex flex-col items-center justify-evenly gap-2 w-full'>
 						{/* conditional location header >=xl */}
 						{isDesktop ? <div className='flex flex-col justify-evenly gap-1 w-full'>
 							<div className='text-xl md:text-2xl font-semibold flex gap-1 items-center justify-center md:justify-start'>
@@ -190,7 +205,10 @@ const App = () => {
 								</div>
 							</div> : null}
 						</div>
-					</div>
+					</div> : 
+					<div className='w-full flex items-center justify-center h-[50vh]'>
+						<Spin size='large'/>
+					</div>}
 				</Card>
 				<div className='w-full h-[32px] mt-10 md:mt-14 flex flex-col items-center justify-center gap-3'>
 					<div className='text-center text-black dark:text-white sm:text-lg md:text-xl'>Made with &hearts; by Harsh Priye</div>
