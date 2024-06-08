@@ -8,7 +8,7 @@ import CustomSwitch from './CustomSwitch'
 
 const Header = () => {
     const {theme,setTheme,unit,setUnit} = useContext(AppContext)
-    const {isMobile} = useWindowSize();
+    const {isMobile,isTablet,isDesktop} = useWindowSize();
 
     return (
         <div className={`${theme==='dark' ? 'dark' : ''}`}>
@@ -16,6 +16,7 @@ const Header = () => {
                 <div className='flex items-center justify-evenly gap-1'>
                     <TiWeatherCloudy size={40}/>
                     <div className='text-2xl'>Weather</div>
+                    {!isMobile && <div className='text-lg ml-2 text-gray-500 dark:text-gray-400'>by harshpx</div>}
                 </div>
                 <div className={`flex flex-col md:flex-row items-center w-4/5 md:w-3/5 lg:w-1/2 xl:w-2/5 justify-between md:justify-end gap-2`}>
                     <div className='w-full'>

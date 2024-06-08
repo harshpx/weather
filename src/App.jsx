@@ -10,7 +10,7 @@ import { MdOutlineDateRange, MdOutlineAccessTime } from "react-icons/md";
 import { FiSunset, FiSunrise, FiBarChart2 } from "react-icons/fi";
 import { FaTemperatureEmpty, FaDroplet } from "react-icons/fa6";
 import { AiFillEyeInvisible } from "react-icons/ai";
-import { FaWind, FaCloud } from "react-icons/fa";
+import { FaWind, FaCloud, FaGithub } from "react-icons/fa";
 
 
 import useWindowSize from './hooks/useWindowSize';
@@ -18,7 +18,7 @@ import useWindowSize from './hooks/useWindowSize';
 const ExtraInfo = ({icon,name,value,unit,theme})=>{
 	return (
 		<div className={`${theme==='dark' ? 'dark' : ''}`}>
-			<div className='rounded-xl w-full px-3 py-2 shadow-lg bg-white dark:bg-gray-700 flex flex-col items-center gap-1'>
+			<div className='rounded-xl w-full px-3 py-2 shadow-lg text-neutral-700 dark:text-indigo-100 bg-white dark:bg-gray-700 flex flex-col items-center gap-1'>
 				<div>{icon}</div>
 				<div className='flex flex-col items-center'>
 					<span>{name}</span>
@@ -192,6 +192,16 @@ const App = () => {
 						</div>
 					</div>
 				</Card>
+				<div className='w-full h-[32px] mt-10 md:mt-14 flex flex-col items-center justify-center gap-3'>
+					<div className='text-center text-black dark:text-white sm:text-lg md:text-xl'>Made with &hearts; by Harsh Priye</div>
+					<div className='flex items-center justify-center gap-2'>
+						<button className='flex items-center justify-center gap-2'>
+							<FaGithub size={20}/>
+							<span className=''>Source Code:</span>
+							<a className='underline text-indigo-400' href="https://github.com/harshpx/weather" target="_blank">github.com/harshpx/weather</a>
+						</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	)
