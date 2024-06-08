@@ -1,78 +1,66 @@
 import React, { useContext, useEffect, useId, useState } from 'react'
 import { v4 as uuid } from 'uuid';
-import { AutoComplete, Button, ConfigProvider } from 'antd'
+import { Select, Spin, ConfigProvider } from 'antd'
+import debounce from 'lodash/debounce';
 import AppContext from '../context/AppContext'
-import { getPlaces, getPlaces2 } from '../api/geoCoding'
+import { geocode, reverseGeocode } from '../api/geoCoding'
 import useWindowSize from '../hooks/useWindowSize';
 
-import { FaSearch } from "react-icons/fa";
+import { IoLocation } from "react-icons/io5";
 
 const SearchBar = () => {
     const {location,setLocation,theme} = useContext(AppContext);
-    const [searchResults,setSearchResults] = useState([]);
     const [options,setOptions] = useState([]);
-    const [optionsVisible,setOptionsVisible] = useState(false);
-
-    const [searchText,setSearchText] = useState('');
-
+    const [loading,setLoading] = useState(false);
     const {isMobile} = useWindowSize();
+    const { Option } = Select;
 
-    const valHandler = (info)=>({
-        key:uuid(),
-        value:info.address,
-    })
 
-    const getOptions = (searchResults)=>(
-        searchResults.map(info=>valHandler(info))
-    )
+    const searchWithDebounce = debounce(async (text)=>{
+        if(text?.length>3){
+            setLoading(true);
+            const res = await geocode(text);
+            setOptions(res);
+            setLoading(false);
+        } else {
+            setOptions([]);
+        }
+    },700);
+
+    const selectHandler = (value) => {
+        const obj = JSON.parse(value);
+        setLocation(obj);
+        localStorage.setItem('location',value);
+    }
+
+    const fetchCurrentLocation = () => {
+        if('geolocation' in navigator){
+            navigator.geolocation.getCurrentPosition(async (currLocation)=>{
+                const lat = currLocation.coords.latitude;
+                const lon = currLocation.coords.longitude;
+                try {
+                    const res = await reverseGeocode(lat,lon);
+                    if(res){
+                        setLocation(res);
+                        localStorage.setItem('location',JSON.stringify(res));
+                    }
+                } catch (error) {
+                    console.log('Error!');
+                }
+            });
+        } else{
+            console.log('Geolocation not available');
+        }
+    }
     
-    const searchHandler = (text)=>{
-        if(!text){
-            setOptions([])
-        }else{
-            getPlaces(text)
-            .then(res=>{
-                setSearchResults(res)
-                setOptions(getOptions(searchResults))
-            })
-            .catch(err=>console.log(err))
-        }
-    }
-
-    const selectHandler = (text)=>{
-        const currLocation = searchResults.filter(res=>res.address==text);
-        if(currLocation.length>0){
-            console.log(currLocation[0]);
-            setLocation(currLocation[0]);
-            localStorage.setItem('location',JSON.stringify(currLocation[0]));
-        }
-        else console.log('No Location found');
-        setSearchText('');
-    }
-
-    const enterHandler = (e)=>{
-        if(e.key==='Enter'){
-            getPlaces(searchText)
-            .then(res=>{
-                setSearchResults(res)
-                setOptions(getOptions(searchResults))
-            })
-            .catch(err=>console.log(err))
-        }
-    }
-
-    const getSearchSuggestions = ()=>{
-        getPlaces(searchText)
-        .then(res=>{
-            setSearchResults(res)
-            setOptions(getOptions(searchResults))
-        })
-        .catch(err=>console.log(err))
-    }
-
     return (
         <ConfigProvider
         theme={{
+            components: {
+                Select: {
+                    optionSelectedBg:`${theme==='dark' ? '#6366f1' : '#c7d2fe'}`,
+                }
+            },
             token:{
                 colorText:`${theme==='dark' ? 'white' : 'black'}`,
                 colorTextPlaceholder:`${theme==='dark' ? '#afb7c4' : '#494949'}`,
@@ -86,23 +74,24 @@ const SearchBar = () => {
         }}
         >
             <div className='flex items-center gap-1 w-full'>
-            <AutoComplete
-                style={{
-                    width:'100%',
-                    height:'37px',
-                }}
-                value={searchText}
-                onChange={(text)=>{
-                    setSearchText(text)
-                }}
-                placeholder={<div className='text-[10px] sm:text-sm w-full overflow-hidden'>
-                    {isMobile ? 'Enter District/City Name.. (then press enter "multiple times" for suggestions)' : 'Enter District/City Name... (then press enter "maybe multiple times" for suggestions)'}
-                </div>}
-                options={options}
-                onSearch={searchHandler}
-                onSelect={selectHandler}
-                onKeyDown={enterHandler}
-            />
+                <Select
+                    showSearch
+                    placeholder="Enter a location"
+                    notFoundContent={loading ? <Spin size="small" /> : null}
+                    filterOption={false}
+                    onSearch={searchWithDebounce}
+                    onSelect={selectHandler}
+                    className='w-full h-[30px] rounded-[15px] flex items-center justify-center text-center'
+                >
+                    {options.map((option) => (
+                        <Option key={uuid()} value={JSON.stringify(option.value)}>
+                            {option.label}
+                        </Option>
+                    ))}
+                </Select>
+                <button onClick={fetchCurrentLocation} className='flex items-center justify-center rounded-[15px] text-white bg-indigo-400 px-2 py-1 h-[28px]'>
+                    <IoLocation/>
+                </button>
             </div>
         </ConfigProvider>
     )

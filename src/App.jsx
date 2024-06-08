@@ -1,6 +1,5 @@
 import {useState,useContext,useLayoutEffect} from 'react';
 import { getWeather, getForecast } from './api/openWeather';
-import { getPlaces2 } from './api/geoCoding';
 import moment from 'moment-timezone';
 import AppContext from './context/AppContext';
 import Card from './components/Card';
@@ -10,10 +9,8 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { MdOutlineDateRange, MdOutlineAccessTime } from "react-icons/md";
 import { FiSunset, FiSunrise, FiBarChart2 } from "react-icons/fi";
 import { FaTemperatureEmpty, FaDroplet } from "react-icons/fa6";
-import { WiHumidity } from "react-icons/wi";
 import { AiFillEyeInvisible } from "react-icons/ai";
 import { FaWind, FaCloud } from "react-icons/fa";
-import { CiDroplet } from "react-icons/ci";
 
 
 import useWindowSize from './hooks/useWindowSize';
@@ -78,12 +75,6 @@ const App = () => {
 			setForecast(res);
 		})
 		.catch(err=>console.log(err))
-
-		// getPlaces2('new delhi')
-		// .then(res=>{
-		// 	setPlaces(res);
-		// })
-		// .catch(err=>console.log(err))
 	},[location,unit])
 
 	return (
@@ -96,7 +87,7 @@ const App = () => {
 						{isDesktop ? <div className='flex flex-col justify-evenly gap-1 w-full'>
 							<div className='text-xl md:text-2xl font-semibold flex gap-1 items-center justify-center md:justify-start'>
 								<HiOutlineLocationMarker/>
-								<span>{location.address}</span>
+								<span>{location?.address}</span>
 							</div>
 							{weatherData ? <div className='text-black/60 dark:text-white/60 flex gap-4 items-center justify-center md:justify-start'>
 								<div className='flex gap-1 items-center'>
@@ -117,8 +108,8 @@ const App = () => {
 								<div className='flex gap-1 items-start justify-center max-w-56'>
 									<HiOutlineLocationMarker size={40}/>
 									<div className='flex flex-col items-start justify-center'>
-										<span className='text-4xl font-bold'>{`${location.address.split(', ')[0]}`}</span>
-										<span>{`${location.address.split(', ')[1]}, ${location.address.split(', ')[2]}`}</span>
+										<span className='text-4xl font-bold'>{`${location?.address.split(', ')[0]}`}</span>
+										<span>{`${location?.address.split(', ')[1]}, ${location?.address.split(', ')[2]}`}</span>
 										<span>{``}</span>
 									</div>
 								</div>
