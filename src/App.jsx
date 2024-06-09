@@ -70,34 +70,24 @@ const App = () => {
 				setLoading(true);
 				const weather = await getWeather(location,unit);
 				setWeatherData(weather);
+				// console.log(weather);
 				const forecast = await getForecast(location,unit);
 				setForecast(forecast);
+				// console.log(forecast);
 			}catch(err){
 				console.log(err);
 			}finally{
 				setLoading(false);
 			}
 		})()
-		// getWeather(location,unit)
-		// .then(res=>{
-		// 	setWeatherData(res);
-		// 	// console.log(res);
-		// })
-		// .catch(err=>console.log(err))
-
-		// getForecast(location,unit)
-		// .then(res=>{
-		// 	setForecast(res);
-		// })
-		// .catch(err=>console.log(err))
 	},[location,unit])
 
 	return (
 		<div className={`${theme=='dark' ? 'dark' : ''}`}>
-			<div className='transition-all duration-300 min-h-screen min-w-full bg-indigo-100 dark:bg-gray-900 text-black dark:text-white p-6 sm:p-10 md:p-14 lg:p-20 xl:p-24'>
+			<div className='transition-all duration-300 min-h-screen min-w-full bg-indigo-100 dark:bg-gray-900 text-black dark:text-white px-6 py-2 sm:px-10 sm:py-4 md:px-14 md:py-6 lg:px-20 lg:py-9 xl:px-24 xl:py-11'>
 				<Header/>
 				<Card>
-					{!loading ? <div className='flex flex-col items-center justify-evenly gap-2 w-full'>
+					{(!loading && weatherData && forecast?.list?.length>0) ? <div className='flex flex-col items-center justify-evenly gap-2 w-full'>
 						{/* conditional location header >=xl */}
 						{isDesktop ? <div className='flex flex-col justify-evenly gap-1 w-full'>
 							<div className='text-xl md:text-2xl font-semibold flex gap-1 items-center justify-center md:justify-start'>
@@ -121,10 +111,10 @@ const App = () => {
 							{/* conditional location card for <xl*/}
 							{!isDesktop ? <div className='w-full rounded-xl bg-indigo-100 shadow-lg dark:bg-slate-500 h-40 md:h-64 p-6 flex flex-col items-center justify-center gap-2'>
 								<div className='flex gap-1 items-start justify-center max-w-56'>
-									<HiOutlineLocationMarker size={40}/>
+									<HiOutlineLocationMarker size={46}/>
 									<div className='flex flex-col items-start justify-center'>
-										<span className='text-4xl font-bold'>{`${location?.address.split(', ')[0]}`}</span>
-										<span>{`${location?.address.split(', ')[1]}, ${location?.address.split(', ')[2]}`}</span>
+										<span className='text-4xl font-bold'>{`${location?.address?.split(', ')[0]}`}</span>
+										<span>{`${location?.address?.split(', ')[1]}, ${location?.address?.split(', ')[2]}`}</span>
 										<span>{``}</span>
 									</div>
 								</div>
@@ -160,13 +150,13 @@ const App = () => {
 								</div>
 								<div className='flex items-end justify-between w-full relative'>
 									<div className='flex flex-col items-start justify-center'>
-										<div>{`${weatherData?.weather[0]?.main}`}</div>
+										{weatherData?.weather?.length>0 && <div>{`${weatherData?.weather[0]?.main}`}</div>}
 										<div className=''>
 											<span className='text-sm text-black/50 dark:text-white/50'>Feels Like </span>
 											<span className='text-black dark:text-white'>{`${weatherData?.main?.feels_like} \u00B0${unit}`}</span>
 										</div>
 									</div>
-									<img src={`https://openweathermap.org/img/wn/${weatherData?.weather[0]?.icon}@4x.png`} alt="can't load image" className={` absolute bottom-[-10px] right-[-20px] md:right-[-10px] ${(theme==='dark' ||  weatherData?.weather[0]?.icon==='01d') ? ' brightness-125' : ' brightness-90'} object-none object-center h-28 w-36`}/>
+									{weatherData?.weather?.length>0 && <img src={`https://openweathermap.org/img/wn/${weatherData?.weather[0]?.icon}@4x.png`} alt="can't load image" className={` absolute bottom-[-10px] right-[-20px] md:right-[-10px] ${(theme==='dark' ||  weatherData?.weather[0]?.icon==='01d') ? ' brightness-125' : ' brightness-90'} object-none object-center h-28 w-36`}/>}
 								</div>
 							</div> : null}
 
@@ -205,21 +195,9 @@ const App = () => {
 								</div>
 							</div> : null}
 						</div>
-					</div> : 
-					<div className='w-full flex items-center justify-center h-[50vh]'>
-						<Spin size='large'/>
-					</div>}
+					</div> : (loading ? <div className='flex items-center justify-center h-[50vh] w-full'><Spin size='large'/></div> : 
+					<div className='flex items-center justify-center h-[50vh] w-full'>Unable to fetch loaction info...</div>)}
 				</Card>
-				<div className='w-full h-[32px] mt-10 md:mt-14 flex flex-col items-center justify-center gap-3'>
-					<div className='text-center text-black dark:text-white sm:text-lg md:text-xl'>Made with &hearts; by Harsh Priye</div>
-					<div className='flex items-center justify-center gap-2'>
-						<button className='flex items-center justify-center gap-2'>
-							<FaGithub size={20}/>
-							<span className=''>Source Code:</span>
-							<a className='underline text-indigo-400' href="https://github.com/harshpx/weather" target="_blank">github.com/harshpx/weather</a>
-						</button>
-					</div>
-				</div>
 			</div>
 		</div>
 	)
