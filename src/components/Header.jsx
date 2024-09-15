@@ -82,7 +82,7 @@ const Header = () => {
                             <div className='w-full flex items-center justify-center gap-2 flex-wrap'>
                                 <div
                                     className='transition-all duration-200 flex items-center justify-center text-center gap-2 rounded-full p-1 bg-white text-black border-2 border-white cursor-pointer hover:p-2 hover:bg-gray-700 hover:text-white'
-                                    onClick={()=>linkRedirect('https://www.harshpriye.online')}
+                                    onClick={()=>linkRedirect('https://www.harshpriye.in')}
                                 >
                                     <FaCode size={18}/>
                                     <div>Portfolio</div>
